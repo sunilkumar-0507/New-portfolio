@@ -90,7 +90,7 @@ export default function About() {
           <span data-about-l2 className="block">
             We build
             <br />
-            <span className="text-accent">the future.</span>
+            <span className="text-brand">the future.</span>
           </span>
         </h2>
 
@@ -197,7 +197,7 @@ export default function About() {
         <div data-milestones className="relative mt-24 md:mt-32">
           <div className="flex items-end justify-between gap-6">
             <h3 className="t-big">
-              Five years of <span className="text-accent">compounding.</span>
+              Five years of <span className="text-brand">compounding.</span>
             </h3>
           </div>
           <div className="relative mt-12">

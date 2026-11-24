@@ -106,7 +106,7 @@ export const orbFragment = /* glsl */ `
     float spec = pow(max(dot(n, normalize(l1 + v)), 0.0), 90.0);
     float spec2 = pow(max(dot(n, normalize(l2 + v)), 0.0), 30.0);
     col += vec3(1.0) * spec * 1.1 + uColorA * spec2 * 0.5;
-    col += vec3(1.0, 0.3, 0.42) * fres * 0.55;
+    col += vec3(0.62, 0.86, 0.26) * fres * 0.6; // lime rim, like the logo's green panel
 
     gl_FragColor = vec4(col, 1.0);
     #include <tonemapping_fragment>
@@ -153,13 +153,18 @@ export const bgFragment = /* glsl */ `
     float md = length(p - m);
     float mg = exp(-md * md * 10.0) * 0.22;
 
-    vec3 red = mix(vec3(1.0, 0.08, 0.22), vec3(0.55, 0.0, 0.14), uHue);
+    // Brand nebula: violet ↔ cobalt drifting across the frame, lime under the cursor.
+    vec3 violet = vec3(0.545, 0.247, 0.851);
+    vec3 cobalt = vec3(0.122, 0.357, 0.878);
+    vec3 lime = vec3(0.608, 0.761, 0.227);
+    float side = smoothstep(0.1, 0.9, vUv.x + n * 0.35 + (uHue - 0.15) * 0.8);
+    vec3 red = mix(violet, cobalt, side);
     vec3 base = vec3(0.0196);
-    vec3 col = base + red * glow * 0.32 * uIntensity + red * mg * uIntensity;
+    vec3 col = base + red * glow * 0.34 * uIntensity + lime * mg * 0.8 * uIntensity;
 
     // faint horizon line of light
     float horizon = exp(-pow((vUv.y - 0.18 - n * 0.04) * 9.0, 2.0)) * 0.05;
-    col += red * horizon * uIntensity;
+    col += mix(lime, cobalt, vUv.x) * horizon * uIntensity;
 
     float vig = smoothstep(1.2, 0.2, length((vUv - 0.5) * vec2(1.15, 1.35)));
     col *= mix(0.45, 1.0, vig);

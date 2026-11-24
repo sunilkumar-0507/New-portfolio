@@ -6,6 +6,8 @@ import { pointer, sceneState } from '../../lib/store'
 
 type Props = { count: number; reduced: boolean }
 
+const SHARD_COLORS = ['#8b3fd9', '#1f5be0', '#9bc23a'] as const
+
 /**
  * Instanced metallic shards (tetrahedra + octahedra) orbiting the scene. One
  * draw call per geometry; per-instance colour, spin and cursor avoidance.
@@ -57,7 +59,7 @@ export default function Shards({ count, reduced }: Props) {
       if (!mesh) return
       for (let i = 0; i < half; i++) {
         const it = items[m * half + i]
-        mesh.setColorAt(i, c.set(it.red ? '#ff1538' : '#f2f2f2'))
+        mesh.setColorAt(i, c.set(it.red ? SHARD_COLORS[(m * half + i) % 3] : '#f2f2f2'))
       }
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
     })

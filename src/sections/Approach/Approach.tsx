@@ -55,7 +55,7 @@ export default function Approach() {
           <div>
             <SectionLabel index="04" label="Our Approach" />
             <h2 id="approach-title" className="t-big mt-6">
-              From idea <span className="text-accent">to impact.</span>
+              From idea <span className="text-brand">to impact.</span>
             </h2>
           </div>
           <p className="hidden font-display text-7xl leading-none md:block" aria-hidden>
@@ -70,7 +70,7 @@ export default function Approach() {
           {/* progress rail */}
           <div className="wrap">
             <div className="relative h-px w-full bg-line">
-              <div ref={fill} className="absolute inset-0 origin-left bg-accent shadow-[0_0_12px_rgba(255,21,56,0.9)]" />
+              <div ref={fill} className="absolute inset-0 origin-left bg-accent shadow-[0_0_12px_rgba(139,63,217,0.9)]" />
             </div>
           </div>
 

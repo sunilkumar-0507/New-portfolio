@@ -3,8 +3,11 @@
 @theme {
   --color-bg: #050505;
   --color-bg-2: #101010;
-  --color-accent: #ff1538;
-  --color-accent-2: #d90029;
+  --color-accent: #8b3fd9;
+  --color-accent-2: #1f5be0;
+  --color-violet: #8b3fd9;
+  --color-cobalt: #1f5be0;
+  --color-lime: #9bc23a;
   --color-ink: #ffffff;
   --color-muted: #a1a1a1;
   --color-line: #252525;
@@ -22,6 +25,7 @@
 }
 
 html {
+  overflow-anchor: none;
   background: var(--color-bg);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
@@ -101,6 +105,16 @@ html.has-custom-cursor button {
 .text-outline {
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55);
+}
+/* K76 brand gradient (logo: lime → cobalt → violet) */
+.text-brand {
+  background: linear-gradient(100deg, #9bc23a 0%, #3d7bff 48%, #a45cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.bg-brand {
+  background: linear-gradient(100deg, #9bc23a 0%, #1f5be0 50%, #8b3fd9 100%);
 }
 .text-outline-red {
   color: transparent;

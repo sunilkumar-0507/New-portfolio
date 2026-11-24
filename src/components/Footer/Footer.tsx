@@ -6,6 +6,7 @@ import { footerNav } from '../../data/navigation'
 import { services } from '../../data/services'
 import { prefersReducedMotion } from '../../hooks/useMediaQuery'
 import Logo from '../Buttons/Logo'
+import BrandMark from '../Buttons/BrandMark'
 import MagneticButton from '../Buttons/MagneticButton'
 import SocialIcon from '../Buttons/SocialIcon'
 
@@ -34,7 +35,10 @@ export default function Footer() {
       <div className="wrap pt-20 md:pt-28">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Logo className="h-10 w-auto" />
+            <div className="flex items-center gap-4">
+              <BrandMark className="h-14 w-14" />
+              <Logo className="h-9 w-auto" />
+            </div>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">{company.description}</p>
             <p className="t-label mt-6 text-white/60">{company.tagline}</p>
           </div>

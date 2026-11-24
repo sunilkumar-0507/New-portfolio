@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
-import { gsap, SplitText, scrollToSection, useGSAP } from '../../animations/gsapAnimations'
+import { gsap, paintBrandChars, SplitText, scrollToSection, useGSAP } from '../../animations/gsapAnimations'
 import { company } from '../../data/company'
 import { usePhase } from '../../lib/store'
 import { prefersReducedMotion } from '../../hooks/useMediaQuery'
@@ -22,6 +22,7 @@ export default function Hero() {
         return
       }
       const split = SplitText.create(q('[data-hero-line]'), { type: 'chars', mask: 'chars' })
+      paintBrandChars(split.chars)
       gsap.set(q('[data-hero-line]'), { opacity: 1 })
       const tl = gsap.timeline({ delay: 0.75 })
       tl.from(split.chars, {
@@ -70,7 +71,7 @@ export default function Hero() {
       {/* top meta row */}
       <div className="wrap flex items-start justify-between" data-hero-side>
         <p data-hero-fade className="t-label max-w-[18ch] leading-relaxed text-muted opacity-0">
-          <span className="text-accent">●</span> {company.name}
+          <span className="text-lime">●</span> {company.name}
         </p>
         <p data-hero-fade className="t-label hidden text-right leading-relaxed text-muted opacity-0 sm:block">
           Est. {company.founded}
@@ -103,7 +104,7 @@ export default function Hero() {
             </span>
             <span data-hero-l2 className="block">
               <span data-hero-line className="block opacity-0">
-                What&rsquo;s <span className="text-accent">Next.</span>
+                What&rsquo;s <span className="text-brand">Next.</span>
               </span>
             </span>
           </h1>

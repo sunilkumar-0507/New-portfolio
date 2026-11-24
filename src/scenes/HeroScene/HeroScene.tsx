@@ -74,7 +74,7 @@ export default function HeroScene() {
         <ReadySignal />
         {cfg.post && (
           <EffectComposer multisampling={tier === 'high' ? 4 : 0} enableNormalPass={false}>
-            <Bloom mipmapBlur luminanceThreshold={0.82} luminanceSmoothing={0.2} intensity={0.75} radius={0.7} />
+            <Bloom mipmapBlur luminanceThreshold={0.9} luminanceSmoothing={0.2} intensity={0.75} radius={0.7} />
             <Vignette offset={0.25} darkness={0.75} />
             <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
           </EffectComposer>

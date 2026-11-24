@@ -102,7 +102,7 @@ export default function WhyK76() {
             Why build
           </span>
           <span data-why-l2 className="block">
-            with <span className="text-accent">K76?</span>
+            with <span className="text-brand">K76?</span>
           </span>
         </h2>
 
@@ -115,7 +115,7 @@ export default function WhyK76() {
                 <span data-count={s.value} data-from={s.isYear ? 1990 : 0}>
                   {s.value}
                 </span>
-                <span className="text-accent">{s.suffix}</span>
+                <span className="text-lime">{s.suffix}</span>
               </dd>
               <dt className="t-label mt-4 text-muted">{s.label}</dt>
             </div>

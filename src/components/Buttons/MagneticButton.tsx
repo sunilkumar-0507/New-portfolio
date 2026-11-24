@@ -18,7 +18,7 @@ type Props = {
 
 const styles: Record<Variant, string> = {
   primary:
-    'group/btn relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-accent px-7 py-4 font-grotesk text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_0_40px_-8px_rgba(255,21,56,0.7)]',
+    'group/btn relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-accent px-7 py-4 font-grotesk text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_0_40px_-8px_rgba(139,63,217,0.7)]',
   ghost:
     'group/btn relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/25 px-7 py-4 font-grotesk text-sm font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm',
   plain: 'group/btn relative inline-flex items-center',

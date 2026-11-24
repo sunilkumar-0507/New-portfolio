@@ -32,7 +32,7 @@ function StepsGlyph() {
       {[28, 44, 60, 78, 100].map((h, i) => (
         <span
           key={h}
-          className="flex-1 origin-bottom rounded-t-[3px] bg-gradient-to-t from-accent-2 to-accent"
+          className="flex-1 origin-bottom rounded-t-[3px] bg-gradient-to-t from-[#0141a2] to-cobalt"
           style={{ height: `${h}%`, animation: `eco-grow 2.6s ${i * 0.15}s ease-in-out infinite` }}
         />
       ))}
@@ -49,7 +49,7 @@ function ModulesGlyph() {
           key={i}
           className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 rounded-lg border border-accent/80"
           style={{
-            background: i === 0 ? 'rgba(255,21,56,0.85)' : 'rgba(255,21,56,0.08)',
+            background: i === 0 ? 'rgba(139,63,217,0.85)' : 'rgba(139,63,217,0.08)',
             transform: `translate(-50%, ${-50 + (i - 1) * 34}%) rotateX(60deg) rotateZ(45deg)`,
             animation: `eco-float 3s ${i * 0.25}s ease-in-out infinite`,
           }}
@@ -160,7 +160,7 @@ export default function Ecosystem() {
   return (
     <section id="ecosystem" ref={root} className="relative py-28 md:py-44" aria-labelledby="eco-title">
       <style>{`
-        @keyframes eco-pulse { 0%,100% { background: rgba(255,255,255,0.08) } 45% { background: #ff1538; box-shadow: 0 0 18px rgba(255,21,56,.7) } }
+        @keyframes eco-pulse { 0%,100% { background: rgba(255,255,255,0.08) } 45% { background: #9bc23a; box-shadow: 0 0 18px rgba(155,194,58,.7) } }
         @keyframes eco-grow { 0%,100% { transform: scaleY(.55) } 50% { transform: scaleY(1) } }
         @keyframes eco-float { 0%,100% { margin-top: 0 } 50% { margin-top: -10px } }
       `}</style>
@@ -171,7 +171,7 @@ export default function Ecosystem() {
           <h2 id="eco-title" className="t-huge mt-10">
             One studio.
             <br />
-            <span className="text-accent">Three engines.</span>
+            <span className="text-brand">Three engines.</span>
           </h2>
           <p data-reveal-lines className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
             Business Solutions builds and grows companies. K76 Learn trains the people who do the work. K76 Products turns what we

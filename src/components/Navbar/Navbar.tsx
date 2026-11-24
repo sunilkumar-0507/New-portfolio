@@ -7,7 +7,7 @@ import { lockScroll, scrollToSection } from '../../animations/gsapAnimations'
 import { menuItem, menuOverlay, easeExpo } from '../../animations/transitions'
 import { useScrollProgress } from '../../hooks/useScrollProgress'
 import { usePhase } from '../../lib/store'
-import Logo from '../Buttons/Logo'
+import BrandMark from '../Buttons/BrandMark'
 import MagneticButton from '../Buttons/MagneticButton'
 import SocialIcon from '../Buttons/SocialIcon'
 
@@ -82,8 +82,9 @@ export default function Navbar() {
             aria-label="K76 — back to top"
             data-cursor="Top"
           >
-            <Logo className="h-7 w-auto transition-transform duration-500 group-hover:-rotate-3 group-hover:scale-110 md:h-8" />
-            <span className="hidden font-grotesk text-[0.65rem] uppercase leading-tight tracking-[0.25em] text-muted lg:block">
+            <BrandMark className="h-10 w-10 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 md:h-12 md:w-12" />
+            <span className="hidden font-grotesk text-[0.65rem] uppercase leading-tight tracking-[0.25em] text-muted sm:block">
+              <span className="block font-display text-lg leading-none tracking-[0.06em] text-white">K76</span>
               Business
               <br />
               Solutions
@@ -104,7 +105,7 @@ export default function Navbar() {
                   {active === item.id && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-accent shadow-[0_0_24px_-4px_rgba(255,21,56,0.8)]"
+                      className="absolute inset-0 -z-10 rounded-full bg-accent shadow-[0_0_24px_-4px_rgba(139,63,217,0.8)]"
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     />
                   )}

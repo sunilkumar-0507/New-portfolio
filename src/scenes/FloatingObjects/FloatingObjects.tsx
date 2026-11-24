@@ -31,19 +31,19 @@ function Rings({ reduced, shadows }: { reduced: boolean; shadows: boolean }) {
       new THREE.TorusGeometry(2.35, 0.09, 32, 200),
     ]
     const metal = new THREE.MeshPhysicalMaterial({
-      color: '#ff1538',
+      color: '#1f5be0',
       metalness: 0.9,
       roughness: 0.18,
       clearcoat: 1,
       envMapIntensity: 1.6,
     })
     const hot = new THREE.MeshStandardMaterial({
-      color: '#ff2a4a',
-      emissive: '#ff1538',
+      color: '#b98aff',
+      emissive: '#8b3fd9',
       emissiveIntensity: 2.2,
       toneMapped: false,
     })
-    const chrome = new THREE.MeshPhysicalMaterial({ color: '#d9d9d9', metalness: 1, roughness: 0.08, envMapIntensity: 1.4 })
+    const chrome = new THREE.MeshPhysicalMaterial({ color: '#9bc23a', metalness: 0.9, roughness: 0.14, clearcoat: 1, envMapIntensity: 1.5 })
     return { geos, mats: [metal, hot, chrome] }
   }, [])
   useEffect(
@@ -125,14 +125,14 @@ function LiquidOrb({ reduced, detail }: { reduced: boolean; detail: number }) {
         uniforms: {
           uTime: { value: 0 },
           uAmp: { value: 0.22 },
-          uColorA: { value: new THREE.Color('#ff1538') },
-          uColorB: { value: new THREE.Color('#1a0004') },
+          uColorA: { value: new THREE.Color('#8b3fd9') },
+          uColorB: { value: new THREE.Color('#031338') },
         },
       }),
     [],
   )
   const cageMat = useMemo(
-    () => new THREE.LineBasicMaterial({ color: '#ff1538', transparent: true, opacity: 0.38, depthWrite: false }),
+    () => new THREE.LineBasicMaterial({ color: '#9bc23a', transparent: true, opacity: 0.45, depthWrite: false }),
     [],
   )
   const octaMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#ffffff', metalness: 1, roughness: 0.1 }), [])
@@ -211,7 +211,11 @@ function Spheres({ reduced, shadows }: { reduced: boolean; shadows: boolean }) {
     [],
   )
   const red = useMemo(
-    () => new THREE.MeshPhysicalMaterial({ color: '#ff1538', metalness: 0.7, roughness: 0.12, clearcoat: 1, envMapIntensity: 1.5 }),
+    () => new THREE.MeshPhysicalMaterial({ color: '#8b3fd9', metalness: 0.7, roughness: 0.12, clearcoat: 1, envMapIntensity: 1.5 }),
+    [],
+  )
+  const lime = useMemo(
+    () => new THREE.MeshPhysicalMaterial({ color: '#9bc23a', metalness: 0.75, roughness: 0.12, clearcoat: 1, envMapIntensity: 1.5 }),
     [],
   )
   useEffect(
@@ -219,8 +223,9 @@ function Spheres({ reduced, shadows }: { reduced: boolean; shadows: boolean }) {
       geo.dispose()
       chrome.dispose()
       red.dispose()
+      lime.dispose()
     },
-    [geo, chrome, red],
+    [geo, chrome, red, lime],
   )
 
   useFrame((_, delta) => {
@@ -241,7 +246,7 @@ function Spheres({ reduced, shadows }: { reduced: boolean; shadows: boolean }) {
         <Float key={i} speed={reduced ? 0 : 1.4} rotationIntensity={0.4} floatIntensity={reduced ? 0 : 1.2}>
           <mesh
             geometry={geo}
-            material={s.red ? red : chrome}
+            material={s.red ? (i === 1 ? red : lime) : chrome}
             position={s.p as unknown as [number, number, number]}
             scale={s.r}
             castShadow={shadows}

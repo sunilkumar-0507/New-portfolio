@@ -39,8 +39,8 @@ export default function CustomCursor() {
       setLabel(text)
       gsap.to(ring.current, {
         scale: el ? (text ? 2.6 : 1.7) : 1,
-        backgroundColor: el ? (text ? 'rgba(255,21,56,0.92)' : 'rgba(255,255,255,0.06)') : 'rgba(255,255,255,0)',
-        borderColor: el && text ? 'rgba(255,21,56,0)' : 'rgba(255,255,255,0.45)',
+        backgroundColor: el ? (text ? 'rgba(139,63,217,0.92)' : 'rgba(255,255,255,0.06)') : 'rgba(255,255,255,0)',
+        borderColor: el && text ? 'rgba(139,63,217,0)' : 'rgba(255,255,255,0.45)',
         duration: 0.45,
         ease: 'power3.out',
       })

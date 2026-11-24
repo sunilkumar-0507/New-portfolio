@@ -34,7 +34,7 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
         <div
           aria-hidden
           className="pointer-events-none fixed inset-0 z-0"
-          style={{ background: 'radial-gradient(60% 50% at 50% 45%, rgba(255,21,56,0.22), transparent 70%), #050505' }}
+          style={{ background: 'radial-gradient(60% 50% at 50% 45%, rgba(139,63,217,0.22), transparent 70%), #050505' }}
         />
       )
     }

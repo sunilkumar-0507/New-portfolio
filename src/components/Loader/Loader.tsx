@@ -4,6 +4,7 @@ import { app } from '../../lib/store'
 import { prefersReducedMotion } from '../../hooks/useMediaQuery'
 import { LOGO_PATHS, LOGO_VIEWBOX } from './logoPaths'
 
+const GLYPH_FILL = ['#9bc23a', '#ffffff', '#8b3fd9']
 const MIN_TIME = 2.3 // seconds before the logo may hand over
 const MAX_WAIT = 7 // never block longer than this, even if WebGL is slow
 
@@ -19,6 +20,8 @@ export default function Loader({ onDone }: { onDone: () => void }) {
   const root = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const logo = useRef<SVGSVGElement>(null)
+  const mark = useRef<HTMLDivElement>(null)
+  const icon = useRef<HTMLImageElement>(null)
   const counter = useRef<HTMLSpanElement>(null)
   const [gone, setGone] = useState(false)
 
@@ -75,14 +78,23 @@ export default function Loader({ onDone }: { onDone: () => void }) {
         p.a += (state.fade - p.a) * 0.05
         const near = Math.max(0, 1 - d / 140)
         ctx.beginPath()
-        ctx.fillStyle = p.hue > 0.8 ? `rgba(255,255,255,${p.a * 0.8})` : `rgba(255,${21 + near * 60},56,${p.a})`
+        // brand particles: lime / cobalt / violet / white, brightening near the core
+        const lift = Math.round(near * 70)
+        ctx.fillStyle =
+          p.hue > 0.86
+            ? `rgba(255,255,255,${p.a * 0.8})`
+            : p.hue > 0.58
+              ? `rgba(${139 + lift},${63 + lift},217,${p.a})`
+              : p.hue > 0.3
+                ? `rgba(${31 + lift},${91 + lift},224,${p.a})`
+                : `rgba(155,${194 + lift / 3},58,${p.a})`
         ctx.arc(p.x, p.y, p.r * (1 - near * 0.5), 0, Math.PI * 2)
         ctx.fill()
       }
       if (state.flash > 0) {
         const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 260)
-        g.addColorStop(0, `rgba(255,21,56,${0.55 * state.flash})`)
-        g.addColorStop(1, 'rgba(255,21,56,0)')
+        g.addColorStop(0, `rgba(139,63,217,${0.55 * state.flash})`)
+        g.addColorStop(1, 'rgba(139,63,217,0)')
         ctx.fillStyle = g
         ctx.fillRect(0, 0, w, h)
       }
@@ -116,21 +128,22 @@ export default function Loader({ onDone }: { onDone: () => void }) {
       }
       out
         .to(counter.current, { opacity: 0, duration: 0.3 }, 0)
-        .to(logo.current, { scale: 14, opacity: 0, duration: 1.1, ease: 'expo.in' }, 0)
+        .to(mark.current, { scale: 14, opacity: 0, duration: 1.1, ease: 'expo.in' }, 0)
         .to(state, { flash: 1, duration: 0.5, ease: 'power2.in' }, 0.3)
         .to(root.current, { clipPath: 'circle(0% at 50% 50%)', duration: 1.0, ease: 'expo.inOut' }, 0.55)
     }
 
     const tl = gsap.timeline()
     if (reduced) {
-      tl.set(paths, { strokeDashoffset: 0, fill: (i: number) => (i === 0 ? '#ff1538' : '#fff') })
-      tl.set(logo.current, { opacity: 1 })
+      tl.set(paths, { strokeDashoffset: 0, fill: (i: number) => GLYPH_FILL[i] })
+      tl.set(mark.current, { opacity: 1 })
     } else {
       tl.to(state, { fade: 1, duration: 0.6, ease: 'power2.out' }, 0.25)
         .to(state, { converge: 1, duration: 1.3, ease: 'power2.in' }, 0.55)
-        .to(logo.current, { opacity: 1, scale: 1, duration: 0.01 }, 1.35)
+        .to(mark.current, { opacity: 1, duration: 0.01 }, 1.2)
+        .from(icon.current, { scale: 0, rotate: -120, duration: 1.1, ease: 'back.out(1.7)' }, 1.2)
         .to(paths, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut', stagger: 0.1 }, 1.35)
-        .to(paths, { fill: (i: number) => (i === 0 ? '#ff1538' : '#ffffff'), duration: 0.4, stagger: 0.08 }, 1.9)
+        .to(paths, { fill: (i: number) => GLYPH_FILL[i], duration: 0.4, stagger: 0.08 }, 1.9)
         .to(state, { fade: 0, duration: 0.4 }, 1.9)
         .to(state, { flash: 0.5, duration: 0.25, yoyo: true, repeat: 1 }, 1.9)
     }
@@ -165,17 +178,26 @@ export default function Loader({ onDone }: { onDone: () => void }) {
       aria-label="Loading K76"
     >
       <canvas ref={canvas} className="absolute inset-0 h-full w-full" />
-      <svg
-        ref={logo}
-        viewBox={LOGO_VIEWBOX}
-        className="relative w-[min(46vw,320px)] opacity-0 drop-shadow-[0_0_30px_rgba(255,21,56,0.55)]"
-        style={{ transform: 'scale(0.96)' }}
-        aria-hidden="true"
-      >
-        {LOGO_PATHS.map((p) => (
-          <path key={p.ch} d={p.d} fill="transparent" stroke="#ff1538" strokeWidth={1.2} />
-        ))}
-      </svg>
+      <div ref={mark} className="relative flex flex-col items-center gap-7 opacity-0">
+        <img
+          ref={icon}
+          src="/brand/k76-logo.png"
+          alt=""
+          width={256}
+          height={256}
+          className="h-[min(30vw,150px)] w-[min(30vw,150px)] drop-shadow-[0_0_40px_rgba(139,63,217,0.6)]"
+        />
+        <svg
+          ref={logo}
+          viewBox={LOGO_VIEWBOX}
+          className="w-[min(36vw,190px)] drop-shadow-[0_0_24px_rgba(31,91,224,0.45)]"
+          aria-hidden="true"
+        >
+          {LOGO_PATHS.map((p) => (
+            <path key={p.ch} d={p.d} fill="transparent" stroke="#8b3fd9" strokeWidth={1.2} />
+          ))}
+        </svg>
+      </div>
       <div className="absolute bottom-8 left-0 right-0 flex items-end justify-between px-[var(--gutter)] font-grotesk text-xs uppercase tracking-[0.25em] text-muted">
         <span>K76 Business Solutions</span>
         <span>

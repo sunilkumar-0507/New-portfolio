@@ -123,3 +123,32 @@ export function inkWords(target: Element) {
     },
   })
 }
+
+/**
+ * `background-clip: text` gradients break once SplitText wraps each character
+ * in its own (masked, transformed) element. Re-paint every split char inside a
+ * `.text-brand` host with the host's gradient, offset so the sweep stays continuous.
+ */
+export function paintBrandChars(chars: Element[]) {
+  const hosts = new Map<HTMLElement, HTMLElement[]>()
+  for (const c of chars) {
+    const host = (c as HTMLElement).closest<HTMLElement>('.text-brand')
+    if (!host) continue
+    if (!hosts.has(host)) hosts.set(host, [])
+    hosts.get(host)!.push(c as HTMLElement)
+  }
+  hosts.forEach((list, host) => {
+    const hr = host.getBoundingClientRect()
+    const image = getComputedStyle(host).backgroundImage
+    for (const ch of list) {
+      const r = ch.getBoundingClientRect()
+      ch.style.backgroundImage = image
+      ch.style.backgroundSize = `${hr.width}px ${hr.height}px`
+      ch.style.backgroundPosition = `${hr.left - r.left}px 0`
+      ch.style.backgroundRepeat = 'no-repeat'
+      ch.style.setProperty('-webkit-background-clip', 'text')
+      ch.style.backgroundClip = 'text'
+      ch.style.color = 'transparent'
+    }
+  })
+}

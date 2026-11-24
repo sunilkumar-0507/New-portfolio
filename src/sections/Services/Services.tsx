@@ -15,8 +15,8 @@ function ServiceVisual({ service, size = 'lg' }: { service: Service; size?: 'lg'
   return (
     <div className={`relative ${box} shrink-0`}>
       <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" style={{ animation: 'spin-slow 14s linear infinite' }} aria-hidden>
-        <circle cx="50" cy="50" r="47" fill="none" stroke="#ff1538" strokeWidth="0.6" strokeDasharray="2 4" />
-        <circle cx="50" cy="3" r="2.2" fill="#ff1538" />
+        <circle cx="50" cy="50" r="47" fill="none" stroke="#8b3fd9" strokeWidth="0.6" strokeDasharray="2 4" />
+        <circle cx="50" cy="3" r="2.2" fill="#8b3fd9" />
       </svg>
       <svg
         viewBox="0 0 100 100"
@@ -27,7 +27,7 @@ function ServiceVisual({ service, size = 'lg' }: { service: Service; size?: 'lg'
         <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" strokeDasharray="30 10 4 10" />
         <rect x="47" y="1" width="6" height="6" fill="#fff" transform="rotate(45 50 4)" />
       </svg>
-      <div className="absolute inset-[30%] flex items-center justify-center rounded-full bg-accent shadow-[0_0_50px_-6px_rgba(255,21,56,0.9)]">
+      <div className="absolute inset-[30%] flex items-center justify-center rounded-full bg-accent shadow-[0_0_50px_-6px_rgba(139,63,217,0.9)]">
         <Icon className="h-1/2 w-1/2 text-white" strokeWidth={1.6} aria-hidden />
       </div>
     </div>
@@ -107,7 +107,7 @@ export default function Services() {
             <h2 id="services-title" className="t-huge mt-10">
               Every growth
               <br />
-              lever. <span className="text-accent">One team.</span>
+              lever. <span className="text-brand">One team.</span>
             </h2>
           </div>
           <p data-reveal-lines className="max-w-md text-base leading-relaxed text-muted md:text-lg lg:col-span-4 lg:col-start-9">

@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react'
-import { gsap, SplitText, useGSAP } from '../../animations/gsapAnimations'
+import { gsap, paintBrandChars, SplitText, useGSAP } from '../../animations/gsapAnimations'
 import { company, mailtoLink, offices, socials, whatsappLink } from '../../data/company'
 import { prefersReducedMotion } from '../../hooks/useMediaQuery'
 import SectionLabel from '../../components/Buttons/SectionLabel'
@@ -21,6 +21,7 @@ export default function Contact() {
         mask: 'chars',
         autoSplit: true,
         onSplit(self) {
+          paintBrandChars(self.chars)
           return gsap.from(self.chars, {
             yPercent: 110,
             rotate: 8,
@@ -52,7 +53,7 @@ export default function Contact() {
             Have an idea?
           </span>
           <span data-contact-line className="block">
-            Let&rsquo;s make it <span className="text-accent">real.</span>
+            Let&rsquo;s make it <span className="text-brand">real.</span>
           </span>
         </h2>
 

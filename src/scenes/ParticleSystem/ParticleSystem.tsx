@@ -6,8 +6,10 @@ import { particleFragment, particleVertex } from './shaders'
 
 type Props = { count: number; reduced: boolean }
 
-const RED = new THREE.Color('#ff1538')
-const CRIMSON = new THREE.Color('#d90029')
+// Brand palette from the K76 logo.
+const VIOLET = new THREE.Color('#9b55f0')
+const COBALT = new THREE.Color('#2f6bff')
+const LIME = new THREE.Color('#a6cf3f')
 const WHITE = new THREE.Color('#ffffff')
 
 /**
@@ -45,7 +47,7 @@ export default function ParticleSystem({ count, reduced }: Props) {
       const big = Math.random() < 0.06
       size[i] = big ? 2.2 + Math.random() * 2 : 0.55 + Math.random() * 1.1
       const r = Math.random()
-      c.copy(r < 0.5 ? RED : r < 0.72 ? CRIMSON : WHITE)
+      c.copy(r < 0.34 ? VIOLET : r < 0.6 ? COBALT : r < 0.82 ? LIME : WHITE)
       color[i * 3] = c.r
       color[i * 3 + 1] = c.g
       color[i * 3 + 2] = c.b

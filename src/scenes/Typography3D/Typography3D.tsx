@@ -37,7 +37,7 @@ const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
 type Props = { reduced: boolean; shadows: boolean }
 
 /**
- * Giant extruded K76 letters in glossy red metal. Each glyph is its own mesh so
+ * Giant extruded K76 letters in glossy brand-coloured metal. Each glyph is its own mesh so
  * the entrance, scroll "spread" and mouse tilt can be staggered per letter.
  */
 export default function Typography3D({ reduced, shadows }: Props) {
@@ -45,24 +45,29 @@ export default function Typography3D({ reduced, shadows }: Props) {
   const letters = useRef<(THREE.Group | null)[]>([])
   const { width: vw, height: vh } = useStageViewport()
 
-  const material = useMemo(
-    () =>
+  // One material per glyph, echoing the logo panels: lime K, pearl-white 7, violet 6.
+  const materials = useMemo(() => {
+    const make = (color: string, sheen: string, emissive: string, metalness: number, roughness: number) =>
       new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color('#ff1538'),
-        metalness: 0.55,
-        roughness: 0.16,
+        color: new THREE.Color(color),
+        metalness,
+        roughness,
         clearcoat: 1,
-        clearcoatRoughness: 0.06,
+        clearcoatRoughness: 0.05,
         reflectivity: 0.9,
-        sheen: 0.4,
-        sheenColor: new THREE.Color('#ff6a80'),
-        emissive: new THREE.Color('#5a000f'),
+        sheen: 0.45,
+        sheenColor: new THREE.Color(sheen),
+        emissive: new THREE.Color(emissive),
         emissiveIntensity: 0.35,
         envMapIntensity: 1.35,
-      }),
-    [],
-  )
-  useEffect(() => () => material.dispose(), [material])
+      })
+    return [
+      make('#86ad2c', '#b9e05a', '#0d1402', 0.6, 0.24),
+      make('#eeeef2', '#c9d6ff', '#101018', 0.35, 0.12),
+      make('#8b3fd9', '#c79bff', '#22093d', 0.55, 0.16),
+    ]
+  }, [])
+  useEffect(() => () => materials.forEach((m) => m.dispose()), [materials])
 
   // Fit to both width and height (glyphs are ~0.97×SIZE tall) so short screens aren't swamped.
   const fit = Math.min(1, (vw * 0.84) / TEXT_WIDTH, (vh * 0.42) / (SIZE * 0.97))
@@ -92,7 +97,8 @@ export default function Typography3D({ reduced, shadows }: Props) {
     const targetScale = st.s * fit
     g.scale.setScalar(g.scale.x + (targetScale - g.scale.x) * k)
 
-    material.emissiveIntensity = 0.2 + st.glow * 0.3 + (reduced ? 0 : Math.sin(t * 1.6) * 0.05)
+    const pulse = 0.2 + st.glow * 0.3 + (reduced ? 0 : Math.sin(t * 1.6) * 0.05)
+    for (const m of materials) m.emissiveIntensity = pulse
 
     // Per-letter entrance + spread.
     for (let i = 0; i < LETTERS.length; i++) {
@@ -128,7 +134,7 @@ export default function Typography3D({ reduced, shadows }: Props) {
               bevelThickness={0.06}
               bevelSize={0.035}
               bevelSegments={5}
-              material={material}
+              material={materials[i]}
               castShadow={shadows}
               receiveShadow={shadows}
             >
