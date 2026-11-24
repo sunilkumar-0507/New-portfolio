@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import { useStageViewport } from '../../lib/viewport'
 import type { FontData } from '@react-three/drei'
 import fontJson from '../../assets/fonts/anton-k76.typeface.json'
-import { pointer, sceneState } from '../../lib/store'
+import { pointer, scroll, sceneState } from '../../lib/store'
 
 const font = fontJson as unknown as FontData
 
@@ -90,7 +90,9 @@ export default function Typography3D({ reduced, shadows }: Props) {
     // Portrait screens stack the hero copy at the bottom — lift the type clear of it.
     const lift = vw < vh ? vh * 0.2 : 0
     g.position.y += (st.y + lift + float - g.position.y) * k
-    g.position.z += (st.z - g.position.z) * k
+    // On portrait screens, sink the type further back once past the hero so it reads as a backdrop.
+    const sink = vw < vh ? Math.min(1, scroll.y / (window.innerHeight * 0.8)) * -4 : 0
+    g.position.z += (st.z + sink - g.position.z) * k
     g.rotation.x += (st.rx - my * 0.22 - g.rotation.x) * k
     g.rotation.y += (st.ry + mx * 0.38 - g.rotation.y) * k
     g.rotation.z += (st.rz - g.rotation.z) * k

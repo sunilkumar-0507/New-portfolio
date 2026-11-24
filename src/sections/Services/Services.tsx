@@ -195,7 +195,7 @@ export default function Services() {
                           isOpen ? 'rotate-45 border-white bg-white text-black' : 'border-white/20 text-white'
                         }`}
                       >
-                        {coarse ? <Plus className="h-5 w-5" /> : <ArrowUpRight className="h-5 w-5 -rotate-45" />}
+                        {coarse ? <Plus className="h-5 w-5" /> : <ArrowUpRight className="h-5 w-5 rotate-45" />}
                       </span>
                     </span>
 

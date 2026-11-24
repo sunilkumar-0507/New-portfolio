@@ -130,7 +130,8 @@ export default function Footer() {
       </div>
 
       <div className="pointer-events-none select-none px-[var(--gutter)]" aria-hidden>
-        <div data-footer-logo className="-mb-[2vw]">
+        {/* capped by viewport height so the whole wordmark always fits on screen */}
+        <div data-footer-logo className="mx-auto w-full max-w-[min(100%,58vh)] pb-10 md:pb-14">
           <Logo className="h-auto w-full opacity-90" />
         </div>
       </div>

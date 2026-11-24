@@ -7,7 +7,6 @@ import { prefersReducedMotion } from './hooks/useMediaQuery'
 import Loader from './components/Loader/Loader'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
-import CustomCursor from './components/CustomCursor/CustomCursor'
 import Hero from './sections/Hero/Hero'
 import About from './sections/About/About'
 import Services from './sections/Services/Services'
@@ -82,7 +81,6 @@ export default function App() {
       </SceneBoundary>
 
       <Loader onDone={onLoaded} />
-      <CustomCursor />
       <Navbar />
 
       <main className="relative z-10">

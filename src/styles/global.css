@@ -56,13 +56,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Hide native cursor only when the custom cursor is active (fine pointers). */
-html.has-custom-cursor,
-html.has-custom-cursor a,
-html.has-custom-cursor button {
-  cursor: none;
-}
-
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
